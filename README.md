@@ -1,40 +1,58 @@
-# FinVision - AI-Powered Financial Trading Platform
+# FinVision - Financial Trading Dashboard
 
-FinVision is a comprehensive financial trading platform with AI capabilities, dark mode support, and multi-user management. The application provides real-time market data, AI-powered analysis, and trading functionality.
+FinVision is a modern financial trading dashboard built with Next.js, React, and Tremor UI. It provides a comprehensive platform for traders and investors to monitor markets, manage portfolios, execute trades, and receive AI-powered trading signals.
 
-![FinVision Dashboard](https://via.placeholder.com/800x450.png?text=FinVision+Dashboard)
+![FinVision Dashboard](https://placehold.co/1200x630/png?text=FinVision+Dashboard)
 
 ## Features
 
-- **Dark Mode Dashboard with Widgets**: A fully responsive, customizable dashboard with toggle between light and dark themes for better viewing experience.
-- **Real-time Market Data**: Integration with free data providers (Alpha Vantage, Twelve Data, Finnhub) for global market data including indices like DAX, Dow Jones, and NASDAQ.
-- **AI-Powered Analysis**: Machine learning models to analyze news sentiment, generate trading signals, and identify market patterns.
-- **Trading Functionality**: Both semi-automated (signal generation with human confirmation) and fully automated trading capabilities.
-- **Multi-User System**: Secure authentication with password protection and optional multi-factor authentication.
-- **Advanced Technical Analysis**: Implementation of technical indicators like RSI, MACD, moving averages for market analysis.
+- **User Authentication**: Secure login and registration system
+- **Dashboard Overview**: Quick view of portfolio performance, market indices, and key metrics
+- **Portfolio Management**: Track investments, asset allocation, and performance metrics
+- **Trading Platform**: Execute trades with real-time market data and position management
+- **AI Trading Signals**: Receive AI-powered trading recommendations with confidence scores
+- **Market Data**: Monitor indices, sectors, top movers, economic calendar, and global markets
+- **Financial News**: Stay updated with the latest market news with filtering capabilities
+- **User Profile**: Manage personal information and account settings
+- **Dark Mode Support**: Toggle between light and dark themes for comfortable viewing
+
+## Pages
+
+### Authentication
+- **Login**: Email/password authentication with "Remember me" option
+- **Registration**: New user signup with form validation
+
+### Dashboard
+- **Home**: Overview of portfolio, market indices, recent trades, and AI signals
+- **Portfolio**: Detailed view of holdings, asset allocation, transactions, and performance metrics
+- **Trading**: Order entry form, position management, and real-time charts
+- **AI Signals**: AI-generated trading recommendations with reasoning and confidence scores
+- **Market Data**: Comprehensive market information including indices, sectors, and economic data
+- **News**: Financial news feed with filtering by category, source, sentiment, and impact
+- **Profile**: User profile management with activity tracking and notification history
+- **Settings**: Application preferences, notification settings, API connections, and security options
 
 ## Technology Stack
 
-- **Frontend**: Next.js with React and TypeScript
-- **Styling**: Tailwind CSS with dark mode support
-- **UI Components**: Tremor for data visualization and UI components
-- **Charts**: Lightweight Charts for financial charting
-- **State Management**: Zustand for global state management
-- **Data Fetching**: TanStack Query for efficient data fetching and caching
-- **Authentication**: JWT-based authentication with secure password hashing
+- **Frontend Framework**: Next.js 14 with App Router
+- **UI Library**: React 18
+- **Component Library**: Tremor UI
+- **Styling**: Tailwind CSS
+- **Icons**: React Icons
+- **Charts**: TradingView Widget integration
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18.0.0 or later
+- Node.js 18.0 or later
 - npm or yarn
 
 ### Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/finvision.git
+   git clone https://github.com/Zweiblum66/finvision.git
    cd finvision
    ```
 
@@ -52,64 +70,73 @@ FinVision is a comprehensive financial trading platform with AI capabilities, da
    yarn dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
 ## Project Structure
 
 ```
 finvision/
-├── public/              # Static assets
 ├── src/
-│   ├── app/             # Next.js app router pages
-│   │   ├── api/         # API routes
-│   │   ├── auth/        # Authentication pages
-│   │   ├── dashboard/   # Dashboard pages
-│   │   └── settings/    # Settings pages
-│   ├── components/      # React components
-│   │   ├── charts/      # Chart components
-│   │   ├── ui/          # UI components
-│   │   └── widgets/     # Dashboard widgets
-│   ├── lib/             # Utility functions
-│   │   ├── api/         # API client functions
-│   │   ├── hooks/       # Custom React hooks
-│   │   ├── store/       # Zustand store
-│   │   └── utils/       # Utility functions
-│   ├── styles/          # Global styles
-│   └── types/           # TypeScript type definitions
-├── tailwind.config.js   # Tailwind CSS configuration
-└── next.config.js       # Next.js configuration
+│   ├── app/
+│   │   ├── auth/
+│   │   │   ├── login/
+│   │   │   └── register/
+│   │   ├── dashboard/
+│   │   │   ├── ai-signals/
+│   │   │   ├── market-data/
+│   │   │   ├── news/
+│   │   │   ├── portfolio/
+│   │   │   ├── profile/
+│   │   │   ├── settings/
+│   │   │   ├── trading/
+│   │   │   └── layout.tsx
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components/
+│   │   ├── charts/
+│   │   │   └── TradingViewWidget.tsx
+│   │   └── ui/
+│   │       └── Sidebar.tsx
+├── public/
+├── tailwind.config.js
+├── next.config.js
+├── package.json
+└── README.md
 ```
 
-## Available Scripts
+## Customization
 
-- `npm run dev` - Runs the development server
-- `npm run build` - Builds the application for production
-- `npm start` - Starts the production server
-- `npm run lint` - Lints the codebase
-- `npm run test` - Runs the test suite
-- `npm run analyze` - Analyzes the bundle size
+### Theme
 
-## Environment Variables
+The application supports both light and dark modes. The theme can be toggled using the switch in the sidebar.
 
-Create a `.env.local` file in the root directory with the following variables:
+### API Connections
 
-```
-# Authentication
-JWT_SECRET=your_jwt_secret
+To connect to real trading APIs and market data providers:
 
-# API Keys
-ALPHA_VANTAGE_API_KEY=your_alpha_vantage_api_key
-TWELVE_DATA_API_KEY=your_twelve_data_api_key
-FINNHUB_API_KEY=your_finnhub_api_key
-```
+1. Navigate to the Settings page
+2. Go to the "API Connections" tab
+3. Enter your API credentials for your broker and data provider
 
 ## Deployment
 
-The application can be deployed to any platform that supports Next.js applications, such as Vercel, Netlify, or a custom server.
+### Build for Production
+
+```bash
+npm run build
+# or
+yarn build
+```
 
 ### Deploy to Vercel
 
-The easiest way to deploy the application is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
+The easiest way to deploy the application is to use the [Vercel Platform](https://vercel.com).
+
+```bash
+npm install -g vercel
+vercel
+```
 
 ## Contributing
 
@@ -123,8 +150,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - [Next.js](https://nextjs.org/)
 - [React](https://reactjs.org/)
+- [Tremor UI](https://www.tremor.so/)
 - [Tailwind CSS](https://tailwindcss.com/)
-- [Tremor](https://www.tremor.so/)
-- [Lightweight Charts](https://github.com/tradingview/lightweight-charts)
-- [Zustand](https://github.com/pmndrs/zustand)
-- [TanStack Query](https://tanstack.com/query/latest)
+- [TradingView](https://www.tradingview.com/)
+- [React Icons](https://react-icons.github.io/react-icons/)
