@@ -1,375 +1,450 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { FaChartLine, FaRobot, FaMoon, FaSun, FaChartBar, FaExchangeAlt, FaShieldAlt } from "react-icons/fa";
+import { FaChartLine, FaRobot, FaChartPie, FaNewspaper, FaExchangeAlt, FaShieldAlt, FaMoon, FaSun, FaArrowRight, FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 export default function LandingPage() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
-  // Initialize dark mode from localStorage or system preference
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedDarkMode = localStorage.getItem("darkMode");
-      
-      if (storedDarkMode !== null) {
-        setIsDarkMode(storedDarkMode === "true");
-      } else {
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        setIsDarkMode(prefersDark);
-      }
-    }
-  }, []);
-
-  // Update localStorage and apply dark mode class when isDarkMode changes
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("darkMode", isDarkMode.toString());
-      
-      if (isDarkMode) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    }
-  }, [isDarkMode]);
-
-  // Toggle dark mode
   const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
+    const newDarkMode = !darkMode;
+    setDarkMode(newDarkMode);
+    if (newDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-sm">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center">
-              <FaChartLine className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-              <span className="ml-2 text-xl font-bold text-gray-900 dark:text-white">
-                <span className="text-blue-600 dark:text-blue-400">Fin</span>Vision
-              </span>
+    <div className={`min-h-screen ${darkMode ? "dark" : ""}`}>
+      <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
+        {/* Header */}
+        <header className="border-b border-gray-200 dark:border-gray-800">
+          <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div className="flex items-center space-x-2">
+              <FaChartLine className="text-blue-600 dark:text-blue-400 text-2xl" />
+              <span className="text-xl font-bold">FinVision</span>
             </div>
-            
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-6">
               <nav className="hidden md:flex space-x-8">
-                <a href="#features" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                  Features
-                </a>
-                <a href="#pricing" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                  Pricing
-                </a>
-                <a href="#testimonials" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                  Testimonials
-                </a>
+                <a href="#features" className="hover:text-blue-600 dark:hover:text-blue-400 transition">Features</a>
+                <a href="#testimonials" className="hover:text-blue-600 dark:hover:text-blue-400 transition">Testimonials</a>
+                <a href="#pricing" className="hover:text-blue-600 dark:hover:text-blue-400 transition">Pricing</a>
+                <a href="#faq" className="hover:text-blue-600 dark:hover:text-blue-400 transition">FAQ</a>
               </nav>
-              
               <button
                 onClick={toggleDarkMode}
-                className="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+                className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
                 aria-label="Toggle dark mode"
               >
-                {isDarkMode ? <FaSun className="h-5 w-5" /> : <FaMoon className="h-5 w-5" />}
+                {darkMode ? <FaSun className="text-yellow-400" /> : <FaMoon className="text-gray-600" />}
               </button>
-              
-              <div className="flex space-x-2">
-                <Link
-                  href="/auth/login"
-                  className="px-4 py-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                >
+              <div className="flex space-x-3">
+                <Link href="/auth/login" className="px-4 py-2 rounded-md bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition">
                   Log in
                 </Link>
-                <Link
-                  href="/auth/register"
-                  className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
-                >
+                <Link href="/auth/register" className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition">
                   Sign up
                 </Link>
               </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-100 dark:from-gray-800 dark:to-gray-900">
-        <div className="container mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white leading-tight">
-                AI-Powered Trading Platform for Modern Investors
-              </h1>
-              <p className="mt-6 text-xl text-gray-600 dark:text-gray-300">
-                FinVision combines advanced AI technology with real-time market data to help you make smarter investment decisions.
-              </p>
-              <div className="mt-10 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                <Link
-                  href="/auth/register"
-                  className="px-8 py-3 rounded-md bg-blue-600 text-white text-center font-medium hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
-                >
-                  Get Started Free
-                </Link>
-                <Link
-                  href="/dashboard"
-                  className="px-8 py-3 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-center font-medium hover:bg-gray-50 dark:hover:bg-gray-800"
-                >
-                  View Demo
-                </Link>
-              </div>
+        {/* Hero Section */}
+        <section className="py-20 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-800">
+          <div className="container mx-auto px-4 text-center">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              Smart Trading with <span className="text-blue-600 dark:text-blue-400">AI-Powered</span> Insights
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-10 max-w-3xl mx-auto">
+              FinVision combines advanced analytics, real-time market data, and AI signals to help you make better trading decisions.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-16">
+              <Link href="/auth/register" className="px-8 py-4 rounded-lg bg-blue-600 text-white text-lg font-semibold hover:bg-blue-700 transition flex items-center justify-center gap-2">
+                Get Started <FaArrowRight />
+              </Link>
+              <Link href="/dashboard" className="px-8 py-4 rounded-lg bg-gray-200 dark:bg-gray-800 text-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-700 transition">
+                View Demo
+              </Link>
             </div>
             <div className="relative">
-              <div className="w-full h-[400px] bg-gray-200 dark:bg-gray-700 rounded-lg shadow-xl overflow-hidden">
-                <img
-                  src="https://via.placeholder.com/800x600?text=FinVision+Dashboard"
-                  alt="FinVision Dashboard"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-blue-600 dark:bg-blue-500 rounded-full flex items-center justify-center text-white">
-                <div className="text-center">
-                  <div className="text-xl font-bold">AI</div>
-                  <div className="text-xs">Powered</div>
+              <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-gray-900 z-10 h-20 bottom-0 top-auto"></div>
+              <img 
+                src="https://placehold.co/1200x630/png?text=FinVision+Dashboard+Preview" 
+                alt="FinVision Dashboard Preview" 
+                className="rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 mx-auto"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section id="features" className="py-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Powerful Features</h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                Everything you need to analyze markets, manage your portfolio, and execute trades with confidence.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <FeatureCard 
+                icon={<FaRobot className="text-blue-600 dark:text-blue-400 text-4xl" />}
+                title="AI Trading Signals"
+                description="Receive AI-powered trading recommendations with confidence scores and detailed reasoning."
+              />
+              <FeatureCard 
+                icon={<FaChartLine className="text-green-600 dark:text-green-400 text-4xl" />}
+                title="Advanced Charts"
+                description="Analyze markets with interactive charts, technical indicators, and drawing tools."
+              />
+              <FeatureCard 
+                icon={<FaChartPie className="text-purple-600 dark:text-purple-400 text-4xl" />}
+                title="Portfolio Management"
+                description="Track your investments, monitor performance, and analyze asset allocation."
+              />
+              <FeatureCard 
+                icon={<FaExchangeAlt className="text-red-600 dark:text-red-400 text-4xl" />}
+                title="Trading Platform"
+                description="Execute trades with real-time market data and comprehensive position management."
+              />
+              <FeatureCard 
+                icon={<FaNewspaper className="text-yellow-600 dark:text-yellow-400 text-4xl" />}
+                title="Market News"
+                description="Stay updated with the latest financial news filtered by relevance and impact."
+              />
+              <FeatureCard 
+                icon={<FaShieldAlt className="text-indigo-600 dark:text-indigo-400 text-4xl" />}
+                title="Secure & Private"
+                description="Your data is encrypted and protected with industry-leading security practices."
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section id="testimonials" className="py-20 bg-gray-100 dark:bg-gray-800">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Users Say</h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                Hear from traders who have transformed their investment strategy with FinVision.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <TestimonialCard 
+                quote="FinVision's AI signals have completely changed how I approach the market. My returns have increased by 28% since I started using it."
+                author="Sarah Johnson"
+                role="Day Trader"
+                avatar="https://placehold.co/100x100/png?text=SJ"
+              />
+              <TestimonialCard 
+                quote="The portfolio analytics are incredible. I can see exactly how my investments are performing and make data-driven decisions."
+                author="Michael Chen"
+                role="Investment Analyst"
+                avatar="https://placehold.co/100x100/png?text=MC"
+              />
+              <TestimonialCard 
+                quote="As a beginner investor, FinVision made it easy to understand market trends and make smart investment choices."
+                author="Emily Rodriguez"
+                role="Retail Investor"
+                avatar="https://placehold.co/100x100/png?text=ER"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Pricing Section */}
+        <section id="pricing" className="py-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                Choose the plan that fits your trading needs.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              <PricingCard 
+                title="Basic"
+                price="$29"
+                period="per month"
+                description="Perfect for beginners and casual traders"
+                features={[
+                  "Real-time market data",
+                  "Basic portfolio tracking",
+                  "5 AI signals per day",
+                  "Standard charts",
+                  "Email support"
+                ]}
+                buttonText="Get Started"
+                buttonLink="/auth/register"
+                highlighted={false}
+              />
+              <PricingCard 
+                title="Pro"
+                price="$79"
+                period="per month"
+                description="For active traders who need more power"
+                features={[
+                  "Everything in Basic",
+                  "Advanced portfolio analytics",
+                  "20 AI signals per day",
+                  "Advanced charts with indicators",
+                  "API access",
+                  "Priority support"
+                ]}
+                buttonText="Get Started"
+                buttonLink="/auth/register"
+                highlighted={true}
+              />
+              <PricingCard 
+                title="Enterprise"
+                price="$199"
+                period="per month"
+                description="For professional traders and teams"
+                features={[
+                  "Everything in Pro",
+                  "Unlimited AI signals",
+                  "Custom indicators",
+                  "Team collaboration",
+                  "White-label options",
+                  "Dedicated account manager"
+                ]}
+                buttonText="Contact Sales"
+                buttonLink="#contact"
+                highlighted={false}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section id="faq" className="py-20 bg-gray-100 dark:bg-gray-800">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                Find answers to common questions about FinVision.
+              </p>
+            </div>
+            <div className="max-w-3xl mx-auto space-y-6">
+              <FaqItem 
+                question="How accurate are the AI trading signals?"
+                answer="Our AI signals have demonstrated a 72% accuracy rate over the past year. We continuously train our models with new market data to improve performance."
+              />
+              <FaqItem 
+                question="Can I connect my brokerage account?"
+                answer="Yes, FinVision integrates with major brokerages including Alpaca, Interactive Brokers, TD Ameritrade, and more. You can connect your account in the Settings page."
+              />
+              <FaqItem 
+                question="Is my financial data secure?"
+                answer="Absolutely. We use bank-level encryption to protect your data, and we never store your brokerage passwords. We also offer two-factor authentication for added security."
+              />
+              <FaqItem 
+                question="Can I try FinVision before subscribing?"
+                answer="Yes, we offer a 14-day free trial with full access to all features. No credit card required to start your trial."
+              />
+              <FaqItem 
+                question="What market data is available?"
+                answer="FinVision provides real-time data for US stocks, ETFs, indices, forex, and cryptocurrencies. International markets are available on Pro and Enterprise plans."
+              />
+              <FaqItem 
+                question="How do I cancel my subscription?"
+                answer="You can cancel your subscription anytime from your account settings. If you cancel, you'll continue to have access until the end of your billing period."
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-20 bg-blue-600 dark:bg-blue-800 text-white">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Trading?</h2>
+            <p className="text-xl mb-10 max-w-3xl mx-auto">
+              Join thousands of traders who are making smarter investment decisions with FinVision.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Link href="/auth/register" className="px-8 py-4 rounded-lg bg-white text-blue-600 text-lg font-semibold hover:bg-gray-100 transition flex items-center justify-center gap-2">
+                Start Free Trial <FaArrowRight />
+              </Link>
+              <Link href="#contact" className="px-8 py-4 rounded-lg bg-blue-700 text-white text-lg font-semibold hover:bg-blue-800 transition">
+                Contact Sales
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="bg-gray-900 text-gray-300 py-12">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+              <div>
+                <div className="flex items-center space-x-2 mb-4">
+                  <FaChartLine className="text-blue-400 text-2xl" />
+                  <span className="text-xl font-bold text-white">FinVision</span>
+                </div>
+                <p className="mb-4">
+                  Advanced trading platform with AI-powered insights for modern investors.
+                </p>
+                <div className="flex space-x-4">
+                  <a href="#" className="text-gray-400 hover:text-white transition">
+                    <FaTwitter className="text-xl" />
+                  </a>
+                  <a href="#" className="text-gray-400 hover:text-white transition">
+                    <FaLinkedin className="text-xl" />
+                  </a>
+                  <a href="https://github.com/Zweiblum66/finvision" className="text-gray-400 hover:text-white transition">
+                    <FaGithub className="text-xl" />
+                  </a>
                 </div>
               </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-4 text-white">Product</h3>
+                <ul className="space-y-2">
+                  <li><a href="#features" className="hover:text-blue-400 transition">Features</a></li>
+                  <li><a href="#pricing" className="hover:text-blue-400 transition">Pricing</a></li>
+                  <li><a href="#" className="hover:text-blue-400 transition">API</a></li>
+                  <li><a href="#" className="hover:text-blue-400 transition">Integrations</a></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-4 text-white">Resources</h3>
+                <ul className="space-y-2">
+                  <li><a href="#" className="hover:text-blue-400 transition">Documentation</a></li>
+                  <li><a href="#" className="hover:text-blue-400 transition">Blog</a></li>
+                  <li><a href="#" className="hover:text-blue-400 transition">Tutorials</a></li>
+                  <li><a href="#faq" className="hover:text-blue-400 transition">FAQ</a></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-4 text-white">Company</h3>
+                <ul className="space-y-2">
+                  <li><a href="#" className="hover:text-blue-400 transition">About</a></li>
+                  <li><a href="#" className="hover:text-blue-400 transition">Careers</a></li>
+                  <li><a href="#contact" className="hover:text-blue-400 transition">Contact</a></li>
+                  <li><a href="#" className="hover:text-blue-400 transition">Privacy Policy</a></li>
+                </ul>
+              </div>
+            </div>
+            <div className="border-t border-gray-800 pt-8 text-center text-sm">
+              <p>&copy; {new Date().getFullYear()} FinVision. All rights reserved.</p>
             </div>
           </div>
+        </footer>
+      </div>
+    </div>
+  );
+}
+
+// Feature Card Component
+function FeatureCard({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) {
+  return (
+    <div className="p-6 border border-gray-200 dark:border-gray-700 rounded-xl hover:shadow-lg transition">
+      <div className="mb-4">{icon}</div>
+      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+      <p className="text-gray-600 dark:text-gray-300">{description}</p>
+    </div>
+  );
+}
+
+// Testimonial Card Component
+function TestimonialCard({ quote, author, role, avatar }: { quote: string, author: string, role: string, avatar: string }) {
+  return (
+    <div className="p-6 bg-white dark:bg-gray-900 rounded-xl shadow-md">
+      <div className="flex items-start mb-4">
+        <div className="text-4xl text-blue-600 dark:text-blue-400">"</div>
+      </div>
+      <p className="mb-6 text-gray-600 dark:text-gray-300">{quote}</p>
+      <div className="flex items-center">
+        <img src={avatar} alt={author} className="w-12 h-12 rounded-full mr-4" />
+        <div>
+          <h4 className="font-semibold">{author}</h4>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{role}</p>
         </div>
-      </section>
+      </div>
+    </div>
+  );
+}
 
-      {/* Features Section */}
-      <section id="features" className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-              Powerful Features for Smart Trading
-            </h2>
-            <p className="mt-4 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              FinVision offers a comprehensive suite of tools to help you analyze markets, manage your portfolio, and execute trades with confidence.
-            </p>
-          </div>
+// Pricing Card Component
+function PricingCard({ 
+  title, 
+  price, 
+  period, 
+  description, 
+  features, 
+  buttonText, 
+  buttonLink, 
+  highlighted 
+}: { 
+  title: string, 
+  price: string, 
+  period: string, 
+  description: string, 
+  features: string[], 
+  buttonText: string, 
+  buttonLink: string, 
+  highlighted: boolean 
+}) {
+  return (
+    <div className={`p-8 rounded-xl ${
+      highlighted 
+        ? 'bg-blue-600 text-white shadow-xl scale-105 z-10' 
+        : 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700'
+    }`}>
+      <h3 className="text-2xl font-bold mb-2">{title}</h3>
+      <div className="flex items-baseline mb-4">
+        <span className="text-4xl font-bold">{price}</span>
+        <span className={`ml-2 ${highlighted ? 'text-blue-200' : 'text-gray-500 dark:text-gray-400'}`}>{period}</span>
+      </div>
+      <p className={`mb-6 ${highlighted ? 'text-blue-100' : 'text-gray-600 dark:text-gray-300'}`}>{description}</p>
+      <ul className="mb-8 space-y-3">
+        {features.map((feature, index) => (
+          <li key={index} className="flex items-center">
+            <svg className={`w-5 h-5 mr-2 ${highlighted ? 'text-blue-200' : 'text-blue-600 dark:text-blue-400'}`} fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <span className={highlighted ? 'text-blue-100' : ''}>{feature}</span>
+          </li>
+        ))}
+      </ul>
+      <Link href={buttonLink} className={`block w-full py-3 px-4 rounded-lg text-center font-semibold ${
+        highlighted 
+          ? 'bg-white text-blue-600 hover:bg-gray-100' 
+          : 'bg-blue-600 text-white hover:bg-blue-700'
+      } transition`}>
+        {buttonText}
+      </Link>
+    </div>
+  );
+}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-6">
-                <FaRobot className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                AI Trading Signals
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Receive AI-generated trading signals based on advanced machine learning algorithms that analyze market patterns and news sentiment.
-              </p>
-            </div>
+// FAQ Item Component
+function FaqItem({ question, answer }: { question: string, answer: string }) {
+  const [isOpen, setIsOpen] = useState(false);
 
-            {/* Feature 2 */}
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-6">
-                <FaChartBar className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                Real-time Market Data
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Access real-time data from global markets including stocks, cryptocurrencies, forex, and commodities with interactive charts.
-              </p>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-6">
-                <FaExchangeAlt className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                Automated Trading
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Set up automated trading strategies with customizable parameters and risk management controls for hands-off investing.
-              </p>
-            </div>
-
-            {/* Feature 4 */}
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-6">
-                <FaChartLine className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                Portfolio Analytics
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Track your portfolio performance with advanced analytics, including risk assessment, diversification analysis, and performance attribution.
-              </p>
-            </div>
-
-            {/* Feature 5 */}
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-6">
-                <FaShieldAlt className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                Secure Platform
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Enjoy peace of mind with our secure platform featuring two-factor authentication, encryption, and regular security audits.
-              </p>
-            </div>
-
-            {/* Feature 6 */}
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-6">
-                <FaMoon className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                Dark Mode Support
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Reduce eye strain during extended trading sessions with our customizable dark mode interface, perfect for day and night trading.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-blue-600 dark:bg-blue-800">
-        <div className="container mx-auto max-w-5xl text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">
-            Ready to Transform Your Trading Experience?
-          </h2>
-          <p className="text-xl text-blue-100 mb-10 max-w-3xl mx-auto">
-            Join thousands of traders who are already using FinVision to make smarter investment decisions.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <Link
-              href="/auth/register"
-              className="px-8 py-3 rounded-md bg-white text-blue-600 text-center font-medium hover:bg-gray-100"
-            >
-              Sign Up Now
-            </Link>
-            <Link
-              href="/dashboard"
-              className="px-8 py-3 rounded-md border border-white text-white text-center font-medium hover:bg-blue-700 dark:hover:bg-blue-700"
-            >
-              Explore Demo
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-100 dark:bg-gray-800 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center">
-                <FaChartLine className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-                <span className="ml-2 text-lg font-bold text-gray-900 dark:text-white">
-                  <span className="text-blue-600 dark:text-blue-400">Fin</span>Vision
-                </span>
-              </div>
-              <p className="mt-4 text-gray-600 dark:text-gray-300">
-                AI-powered trading platform for modern investors.
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">
-                Product
-              </h3>
-              <ul className="mt-4 space-y-2">
-                <li>
-                  <a href="#features" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    Features
-                  </a>
-                </li>
-                <li>
-                  <a href="#pricing" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    Pricing
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    API
-                  </a>
-                </li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">
-                Company
-              </h3>
-              <ul className="mt-4 space-y-2">
-                <li>
-                  <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    Blog
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    Careers
-                  </a>
-                </li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">
-                Legal
-              </h3>
-              <ul className="mt-4 space-y-2">
-                <li>
-                  <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    Privacy Policy
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    Terms of Service
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    Cookie Policy
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="mt-12 border-t border-gray-200 dark:border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-600 dark:text-gray-300">
-              &copy; {new Date().getFullYear()} FinVision. All rights reserved.
-            </p>
-            <div className="mt-4 md:mt-0 flex space-x-6">
-              <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                <span className="sr-only">Twitter</span>
-                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-                </svg>
-              </a>
-              <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                <span className="sr-only">GitHub</span>
-                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-                </svg>
-              </a>
-              <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                <span className="sr-only">LinkedIn</span>
-                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fillRule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clipRule="evenodd" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+  return (
+    <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+      <button
+        className="flex justify-between items-center w-full p-4 text-left font-semibold focus:outline-none"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span>{question}</span>
+        <svg
+          className={`w-5 h-5 transition-transform ${isOpen ? 'transform rotate-180' : ''}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      <div className={`px-4 pb-4 ${isOpen ? 'block' : 'hidden'}`}>
+        <p className="text-gray-600 dark:text-gray-300">{answer}</p>
+      </div>
     </div>
   );
 }
